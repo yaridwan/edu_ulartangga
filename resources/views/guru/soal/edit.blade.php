@@ -1,0 +1,1 @@
+@include('guru.soal.create')
