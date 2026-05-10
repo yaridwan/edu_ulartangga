@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ \App\Models\PengaturanAplikasi::getValue('favicon') ? Storage::url(\App\Models\PengaturanAplikasi::getValue('favicon')) : asset('favicon.ico') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-100 font-sans text-gray-800 antialiased">
@@ -15,7 +16,13 @@
         {{-- Sidebar --}}
         <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-gradient-to-b from-primary-800 to-primary-900 text-white transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
             <div class="flex items-center gap-3 px-6 py-5 border-b border-primary-700/50">
-                <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-lg">🎲</div>
+                <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-lg overflow-hidden">
+                    @if(\App\Models\PengaturanAplikasi::getValue('logo'))
+                        <img src="{{ Storage::url(\App\Models\PengaturanAplikasi::getValue('logo')) }}" alt="Logo" class="logo-sidebar">
+                    @else
+                        🎲
+                    @endif
+                </div>
                 <div>
                     <h1 class="font-extrabold text-lg leading-tight">Edu Ular Tangga</h1>
                     <p class="text-xs text-primary-300 capitalize">{{ auth()->user()->role }}</p>

@@ -21,7 +21,20 @@
                     <option value="0" {{ !$item->value ? 'selected' : '' }}>Tidak</option>
                 </select>
                 @elseif($item->type === 'image')
-                <input type="file" name="{{ $item->key }}" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100">
+                <div class="space-y-2">
+                    @if($item->value)
+                    <div class="flex items-center gap-3 p-2 bg-gray-50 rounded-lg border border-gray-200">
+                        <img src="{{ Storage::url($item->value) }}" alt="{{ $item->key }}" class="w-12 h-12 object-contain rounded-lg bg-white border border-gray-100">
+                        <span class="text-xs text-gray-500 flex-1 truncate">{{ basename($item->value) }}</span>
+                    </div>
+                    @else
+                    <div class="flex items-center gap-3 p-2 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                        <div class="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400 text-xl">📷</div>
+                        <span class="text-xs text-gray-400">Belum ada gambar</span>
+                    </div>
+                    @endif
+                    <input type="file" name="{{ $item->key }}" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100">
+                </div>
                 @elseif($item->type === 'number')
                 <input type="number" name="{{ $item->key }}" value="{{ $item->value }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500">
                 @else

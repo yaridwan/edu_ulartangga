@@ -6,7 +6,11 @@
     <div class="w-full max-w-md relative animate-slide-up">
         <div class="text-center mb-8">
             <a href="{{ route('landing') }}" class="inline-flex items-center gap-2 mb-4">
-                <span class="text-4xl">🎲</span>
+                @if(\App\Models\PengaturanAplikasi::getValue('logo'))
+                    <img src="{{ Storage::url(\App\Models\PengaturanAplikasi::getValue('logo')) }}" alt="Logo" class="h-16 w-auto mx-auto">
+                @else
+                    <span class="text-4xl">🎲</span>
+                @endif
             </a>
             <h1 class="text-2xl font-extrabold text-gray-900">Daftar Akun Baru</h1>
             <p class="text-gray-500 mt-1">Bergabung dan mulai bermain!</p>

@@ -8,7 +8,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center gap-2">
-                <span class="text-2xl">🎲</span>
+                @if(\App\Models\PengaturanAplikasi::getValue('logo'))
+                    <img src="{{ Storage::url(\App\Models\PengaturanAplikasi::getValue('logo')) }}" alt="Logo" class="logo-navbar">
+                @else
+                    <span class="text-2xl">🎲</span>
+                @endif
                 <span class="font-extrabold text-xl bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">Edu Ular Tangga</span>
             </div>
             <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
@@ -231,9 +235,13 @@
 <footer class="bg-gray-900 text-gray-400 py-12 px-4">
     <div class="max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-2">
-                <span class="text-xl">🎲</span>
-                <span class="font-bold text-white">Edu Ular Tangga</span>
+            <div class="flex items-center gap-3">
+                @if(\App\Models\PengaturanAplikasi::getValue('logo'))
+                    <img src="{{ Storage::url(\App\Models\PengaturanAplikasi::getValue('logo')) }}" alt="Logo" class="logo-footer">
+                @else
+                    <span class="text-2xl">🎲</span>
+                @endif
+                <span class="font-bold text-white text-lg">Edu Ular Tangga</span>
             </div>
             <p class="text-sm">© {{ date('Y') }} Edu Ular Tangga. Game Edukatif untuk Sekolah Indonesia.</p>
         </div>

@@ -266,3 +266,25 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #64748b;
 }
+
+/* Logo sizing utilities - override Tailwind preflight */
+img.logo-navbar {
+    width: 32px !important;
+    height: 32px !important;
+    max-width: none !important;
+    object-fit: contain;
+}
+
+img.logo-footer {
+    width: 40px !important;
+    height: 40px !important;
+    max-width: none !important;
+    object-fit: contain;
+}
+
+img.logo-sidebar {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: cover;
+}

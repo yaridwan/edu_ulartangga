@@ -26,7 +26,7 @@
                         <span class="text-lg">⏱️</span>
                         <span id="timer" class="text-base font-mono font-bold text-primary-700 tracking-wider">00:00</span>
                     </div>
-                    <button onclick="confirmExit()" class="flex items-center gap-2 text-sm text-white bg-red-500 hover:bg-red-600 px-5 py-2.5 rounded-xl font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 border border-red-600">
+                    <button type="button" onclick="document.getElementById('exit-modal').classList.remove('hidden')" class="flex items-center gap-2 text-sm text-white bg-red-500 hover:bg-red-600 px-5 py-2.5 rounded-xl font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 border border-red-600 relative z-50 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                         </svg>
@@ -156,6 +156,19 @@
             </div>
         </div>
     </div>
+    {{-- Exit Modal --}}
+    <div id="exit-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 animate-bounce-in text-center">
+            <div class="text-6xl mb-4">⚠️</div>
+            <h2 class="text-2xl font-black text-gray-900 mb-2">Yakin Ingin Keluar?</h2>
+            <p class="text-gray-600 mb-6 text-sm">Permainan saat ini akan dibatalkan dan skor tidak akan disimpan.</p>
+            <div class="flex gap-3 justify-center">
+                <button type="button" onclick="document.getElementById('exit-modal').classList.add('hidden')" class="bg-gray-100 text-gray-700 font-bold px-6 py-3 rounded-xl hover:bg-gray-200 transition-colors flex-1 cursor-pointer">Batal</button>
+                <button type="button" onclick="doExitGame()" class="bg-red-500 text-white font-bold px-6 py-3 rounded-xl hover:bg-red-600 transition-colors flex-1 cursor-pointer">Ya, Keluar</button>
+            </div>
+        </div>
+    </div>
+
     {{-- End Content Wrapper --}}
 </div>
 
@@ -753,13 +766,12 @@ function nextTurn() {
     }
 }
 
-function confirmExit() {
-    if (confirm('Yakin ingin keluar? Permainan akan dibatalkan.')) {
-        fetch(`/api/game/${GAME_DATA.permainanId}/selesai`, {
-            method: 'POST',
-            headers: { 'X-CSRF-TOKEN': GAME_DATA.csrfToken, 'Accept': 'application/json' }
-        }).then(() => window.location.href = '{{ route("siswa.dashboard") }}');
-    }
+function doExitGame() {
+    document.getElementById('exit-modal').classList.add('hidden');
+    fetch(`/api/game/${GAME_DATA.permainanId}/selesai`, {
+        method: 'POST',
+        headers: { 'X-CSRF-TOKEN': GAME_DATA.csrfToken, 'Accept': 'application/json' }
+    }).then(() => window.location.href = '{{ route("siswa.dashboard") }}');
 }
 
 // ===== INIT =====
